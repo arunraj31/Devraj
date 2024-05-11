@@ -1,0 +1,33 @@
+{
+  "name": "AiChatBot",
+  "description": "Telegram Bot using Pyrogram",
+  "repository": "https://github.com/ZeroXCoderZ/AiChatBot",
+  "env": {
+    "API_ID": {
+      "description": "Your Telegram API ID",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Your Telegram API Hash",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "Your Telegram Bot Token",
+      "required": true
+    },
+    "OWNER_ID": {
+      "description": "Your Telegram User ID (Owner)",
+      "required": true
+    },
+    "HEROKU_API": {
+      "description": "Your Heroku API Key",
+      "required": true
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "stack": "heroku-20"
+}
