@@ -61,7 +61,7 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
 
 
 
-@app.on_message(filters.text & ~filters.bot)
+@app.on_message(filters.text & ~filters.bot & ~filters.group)
 async def handle_message(client, message):
     try:
         if (
@@ -94,6 +94,31 @@ async def handle_message(client, message):
                 pass  # If chatbot is not enabled, do nothing
         else:
             pass  # If the message doesn't meet the conditions, do nothing.
+    except Exception as e:
+        # Optionally, log the exception if needed
+        print(f"An error occurred: {str(e)}")
+
+
+
+@app.on_message(filters.text & ~filters.bot & ~filters.private)
+async def handlepvt_message(client, message):
+    try:
+        if (
+            message.text.startswith("!")
+            or message.text.startswith("/")
+            or message.text.startswith("?")
+            or message.text.startswith("@")
+            or message.text.startswith("#")
+            or message.text.startswith("P")
+        ):
+            return
+        else:
+            user_id = message.from_user.id
+            user_message = message.text
+            api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
+            response = requests.get(api_url).json()["cnt"]
+            await client.send_chat_action(message.chat.id, ChatAction.TYPING)
+            await message.reply_text(response)
     except Exception as e:
         # Optionally, log the exception if needed
         print(f"An error occurred: {str(e)}")
