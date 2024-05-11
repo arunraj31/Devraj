@@ -64,6 +64,19 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
 @app.on_message(filters.text & ~filters.bot)
 async def handle_message(client, message):
     try:
+        if (
+            message.text.startswith("!")
+            or message.text.startswith("/")
+            or message.text.startswith("?")
+            or message.text.startswith("@")
+            or message.text.startswith("#")
+            or message.text.startswith("P")
+        ):
+            return
+    except Exception:
+        pass
+
+    try:
         chat_id = message.chat.id
 
         # Check if the message is a reply to the bot or if there's no reply
