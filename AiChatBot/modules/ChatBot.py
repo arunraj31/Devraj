@@ -56,7 +56,9 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
         # if not adminn 
         await query.answer("You are not an admin in this group.")
 
-@app.on_message(filters.group & filters.text & filters.reply)
+@app.on_message(
+    (filters.text | filters.group | filters.reply) & ~filters.private & ~filters.bot, group=4
+)
 async def handle_message(client: Client, message: Message):
     try:
         chat_id = message.chat.id
