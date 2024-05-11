@@ -66,7 +66,8 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
 
 @app.on_message(filters.text & ~filters.bot & ~filters.group)
 async def handle_message(client, message):
-    if emoji.emoji_count(message.text) > 0:
+    user_message = message.text
+    if user_message == "emoji":
         return
 
     try:
@@ -91,7 +92,6 @@ async def handle_message(client, message):
             chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
             if chatbot_info:
                 user_id = message.from_user.id
-                user_message = message.text
                 api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
                 response = requests.get(api_url).json()["cnt"]
                 await client.send_chat_action(message.chat.id, ChatAction.TYPING)
