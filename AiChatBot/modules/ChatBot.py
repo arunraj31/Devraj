@@ -5,6 +5,8 @@ import requests
 from config import *
 from AiChatBot import murali as app
 from pyrogram.enums import ChatAction
+from pymongo import MongoClient
+
 
 mongo_client = AsyncIOMotorClient(MONGO_URL)
 db = mongo_client.chatbotdbb
@@ -84,20 +86,54 @@ async def handle_message(client: Client, message: Message):
         print(f"An error occurred: {str(e)}")
 
 
-@app.on_message(
-    (filters.sticker | filters.group | filters.reply) & ~filters.private & ~filters.bot, group=4
-)
-async def agrsticker(client: Client, message: Message):
-    try:
-        if (message.reply_to_message and message.reply_to_message.from_user.is_self) or not message.reply_to_message:
-            collection = mongo_client["Word"]["WordDb"]   
-            random_sticker = collection.find_one({"word": message.reply_to_message.sticker.file_unique_id, "text": message.sticker.file_id})              # Send the sticker
-            await message.reply_sticker(random_sticker)
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
-
 
 
         
-               
+
+
+mongo_client = MongoClient("mongodb+srv://bikash:bikash@bikash.3jkvhp7.mongodb.net/?retryWrites=true&w=majority")
+chatai = mongo_client["Word"]["WordDb"]
+vdb = mongo_client["vDb"]["v"]
+
+@app.on_message(
+    (filters.sticker)
+    & ~filters.private
+    & ~filters.bot,
+)
+async def ifstkr(client, message):
+    try:
+        chat_id = message.chat.id
+        bot_id = (await app.get_me()).id
+
+        is_v = await chatbotdatabase.find_one({"chat_id": chat_id})
+
+        if not message.reply_to_message and message.sticker:
+            if not is_v:
+                await client.send_chat_action(message.chat.id, ChatAction.TYPING)
+                K = []
+                is_chat = chatai.find({"word": message.sticker.file_unique_id})
+                for x in is_chat:
+                    K.append(x['text'])
+                hey = random.choice(K)
+                Yo = chatai.find_one({"text": hey})['check']
+                if Yo == "text":
+                    await message.reply_text(hey)
+                else:
+                    await message.reply_sticker(hey)
+
+        if message.reply_to_message and message.reply_to_message.from_user.id == bot_id:
+            if not is_v:
+                await client.send_chat_action(message.chat.id, ChatAction.TYPING)
+                K = []
+                is_chat = chatai.find({"word": message.text})
+                for x in is_chat:
+                    K.append(x['text'])
+                hey = random.choice(K)
+                Yo = chatai.find_one({"text": hey})['check']
+                if Yo == "text":
+                    await message.reply_text(hey)
+                else:
+                    await message.reply_sticker(hey)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        
