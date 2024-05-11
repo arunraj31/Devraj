@@ -100,7 +100,7 @@ async def handle_message(client, message):
 
 
 
-@app.on_message(filters.text & ~filters.bot & ~filters.private)
+@app.on_message(filters.text & ~filters.private)
 async def handlepvt_message(client, message):
     try:
         if (
