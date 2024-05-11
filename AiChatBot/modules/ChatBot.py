@@ -4,6 +4,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import requests
 from config import *
 from AiChatBot import murali as app
+from pyrogram.enums import ChatAction
 
 mongo_client = AsyncIOMotorClient(MONGO_URL)
 db = mongo_client.chatbotdbb
@@ -72,6 +73,7 @@ async def handle_message(client: Client, message: Message):
                 user_message = message.text
                 api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
                 response = requests.get(api_url).json()["cnt"]
+                await client.send_chat_action(message.chat.id, ChatAction.TYPING)
                 await message.reply_text(response)
             else:
                 pass  # If chatbot is not enabled, do nothing
