@@ -19,10 +19,6 @@
       "description": "Your Telegram User ID (Owner)",
       "required": true
     },
-    "HEROKU_API": {
-      "description": "Your Heroku API Key",
-      "required": true
-    },
     "MONGO_URL": {
       "description": "Your mongo db url",
       "required": true
