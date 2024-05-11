@@ -57,9 +57,7 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
         # if not adminn 
         await query.answer("You are not an admin in this group.")
 
-@app.on_message(
-    (filters.text | filters.group | filters.reply) & ~filters.bot, group=4
-)
+@app.on_message(filters.text & filters.group & filters.reply)
 async def handle_message(client: Client, message: Message):
     try:
         chat_id = message.chat.id
@@ -82,5 +80,22 @@ async def handle_message(client: Client, message: Message):
     except Exception as e:
         # Optionally, log the exception if needed
         print(f"An error occurred: {str(e)}")
+
+
+@app.on_message(filters.sticker & filters.group & filters.reply)
+async def agrsticker(client: Client, message: Message):
+    try:
+        if message.reply_to_message is None or message.reply_to_message.from_user.is_self:
+            collection = mongo_client["Word"]["WordDb"]   
+            random_sticker = collection.aggregate([{ "$sample": { "size": 1 } }])
+            sticker_id = random_sticker[0]["sticker_id"]  
+            # Send the sticker
+            await message.reply_sticker(sticker_id)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+
+
         
 
