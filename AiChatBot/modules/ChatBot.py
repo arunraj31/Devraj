@@ -6,6 +6,7 @@ from config import *
 from AiChatBot import murali as app
 from pyrogram.enums import ChatAction
 from pymongo import MongoClient
+import emoji
 
 
 mongo_client = AsyncIOMotorClient(MONGO_URL)
@@ -61,9 +62,12 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
 
 
 
+
 @app.on_message(filters.text & ~filters.bot & ~filters.group)
 async def handle_message(client, message):
     try:
+        if emoji.emoji_count(message.text) > 0:
+            return
         if (
             message.text.startswith("!")
             or message.text.startswith("/")
@@ -97,7 +101,6 @@ async def handle_message(client, message):
     except Exception as e:
         # Optionally, log the exception if needed
         print(f"An error occurred: {str(e)}")
-
 
 
 @app.on_message(filters.text & ~filters.private)
