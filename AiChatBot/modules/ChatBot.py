@@ -1,7 +1,6 @@
 from pyrogram import Client, filters, types, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 import requests
-from config import *
 from AiChatBot import murali as app
 from pyrogram.enums import ChatAction
 
@@ -9,7 +8,7 @@ from pyrogram.enums import ChatAction
 
 
 
-@app.on_message(filters.private)
+@app.on_message(filters.private & filters.text)
 async def chat_bot(client, message):
     url = "https://adult-gpt.p.rapidapi.com/adultgpt"
 
@@ -36,5 +35,6 @@ async def chat_bot(client, message):
     response = requests.post(url, json=payload, headers=headers)
 
     result = response.json().get('result')
+    await client.send_chat_action(message.chat.id, ChatAction.TYPING)
     await message.reply_text(result)
 
