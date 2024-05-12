@@ -94,31 +94,31 @@ async def handle_message(client, message):
         except Exception as e:
             print(f"An error occurred: {str(e)}")
     else:
-        chat_id = message.chat.id
-        chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
-        if chatbot_info:
-            for emoji in Emojis:
-                if emoji in message.text:
-                    return
-            try:
-                if (
-                    message.text.startswith("!")
-                    or message.text.startswith("/")
-                    or message.text.startswith("?")
-                    or message.text.startswith("@")
-                    or message.text.startswith("#")
-                    or message.text.startswith("P")
-                ):
-                    return
-                else:
-                    user_id = message.from_user.id
-                    user_message = message.text
-                    api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
-                    response = requests.get(api_url).json()["cnt"]
-                    await client.send_chat_action(message.chat.id, ChatAction.TYPING)
-                    await message.reply_text(response)
-            except Exception as e:
-                print(f"An error occurred: {str(e)}")
-        else:
-            pass
-
+        if (message.reply_to_message and message.reply_to_message.from_user.is_self) or not message.reply_to_message:
+            chat_id = message.chat.id
+            chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
+            if chatbot_info:
+                for emoji in Emojis:
+                    if emoji in message.text:
+                        return
+                try:
+                    if (
+                        message.text.startswith("!")
+                        or message.text.startswith("/")
+                        or message.text.startswith("?")
+                        or message.text.startswith("@")
+                        or message.text.startswith("#")
+                        or message.text.startswith("P")
+                    ):
+                        return
+                    else:
+                        user_id = message.from_user.id
+                        user_message = message.text
+                        api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
+                        response = requests.get(api_url).json()["cnt"]
+                        await client.send_chat_action(message.chat.id, ChatAction.TYPING)
+                        await message.reply_text(response)
+                except Exception as e:
+                    print(f"An error occurred: {str(e)}")
+            else:
+                pass
