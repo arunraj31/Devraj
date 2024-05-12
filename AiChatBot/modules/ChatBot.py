@@ -86,10 +86,11 @@ async def ChatiBot(msg):
 
 @app.on_message(filters.text & ~filters.bot & ~filters.group)
 async def handle_message(client, message: types.Message):
-    
+    try:
     # Conditions for when the bot should respond
-    if (message.reply_to_message and message.reply_to_message.from_user.is_self) or not message.reply_to_message:
-        # Setup for RapidAPI call
+    
         msg = message.text
         result = await ChatiBot(msg)
         await message.reply_text(result)
+    except Exception as e:
+        print(e)
