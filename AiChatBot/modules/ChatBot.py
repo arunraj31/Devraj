@@ -76,12 +76,24 @@ async def handle_message(client, message):
                 return
         try:
             if (
+                message.text.startswith("Hello")
+                or message.text.startswith("Hi")
+                or message.text.startswith("Hii")
+                or message.text.startswith("Hui")
+                or message.text.startswith("Hlo")
+                or message.text.startswith("Hloo")
+            ):
+                await message.reply_text(f"Hello {message.from_user.mention} How Are You ? \ni hope your fine\n\nIm A Artificial Intelligence Chat Robot Made By @ZeroXCoderZ \nMy Name Is Chiku\nTell Me Something About Yourself ")
+                return
+            else:
+                pass
+            
+            if (
                 message.text.startswith("!")
                 or message.text.startswith("/")
                 or message.text.startswith("?")
                 or message.text.startswith("@")
                 or message.text.startswith("#")
-                or message.text.startswith("P")
             ):
                 return
             else:
@@ -94,18 +106,6 @@ async def handle_message(client, message):
         except Exception as e:
             print(f"An error occurred: {str(e)}")
     else:
-        if (
-            message.text.startswith("Hello")
-            or message.text.startswith("Hi")
-            or message.text.startswith("Hii")
-            or message.text.startswith("Hui")
-            or message.text.startswith("Hlo")
-            or message.text.startswith("Hloo")
-        ):
-            await message.reply_text(f"Hello {message.from_user.mention} How Are You ? \ni hope your fine\n\nIm A Artificial Intelligence Chat Robot Made By @ZeroXCoderZ \nMy Name Is Chiku\nTell Me Something About Yourself ")
-            return
-        else:
-            pass
         if (message.reply_to_message and message.reply_to_message.from_user.is_self) or not message.reply_to_message:
             chat_id = message.chat.id
             chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
@@ -134,4 +134,3 @@ async def handle_message(client, message):
                     print(f"An error occurred: {str(e)}")
             else:
                 pass
-
