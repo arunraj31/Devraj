@@ -3,8 +3,7 @@ import importlib
 from pyrogram import idle
 from AiChatBot import Chiku
 from AiChatBot.modules import ALL_MODULES
-
- from config import LOGGER_ID
+from config import LOGGER_ID
 
 loop = asyncio.get_event_loop()
 
