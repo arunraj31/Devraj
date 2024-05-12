@@ -6,8 +6,7 @@ from config import *
 from AiChatBot import Chiku
 from pyrogram.enums import ChatAction, ChatType
 
-
-Emojios = [
+Emojis = [
     "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
     "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
     "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩",
@@ -22,16 +21,13 @@ Emojios = [
     "😾"
 ]
 
-
 mongo_client = AsyncIOMotorClient(MONGO_URL)
 db = mongo_client.chatbotdbb
 chatbotdatabase = db.chatbotdbbb
 
-
 async def is_admin(chat_id: int, user_id: int) -> bool:
     member = await Chiku.get_chat_member(chat_id, user_id)
     return member.status in [enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.OWNER]
-
 
 @Chiku.on_message(filters.command("chatbot") & filters.group)
 async def chatbot_command(_, message: Message):
@@ -47,7 +43,6 @@ async def chatbot_command(_, message: Message):
         await message.reply_text("Choose an option:", reply_markup=keyboard)
     else:
         await message.reply_text("You are not an admin in this group.")
-
 
 @Chiku.on_callback_query(filters.regex(r"^(enable|disable)_chatbot$"))
 async def enable_disable_chatbot(_, query: types.CallbackQuery):
@@ -71,89 +66,59 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
             else:
                 await query.answer("Chatbot is not enabled for this chat.")
     else:
-        # if not adminn 
         await query.answer("You are not an admin in this group.")
 
-
-@Chiku.on_message(filters.text & ~filters.bot & ~filters.private)
-async def handlepvt_message(client, message):
-    for emoji in Emojios:
-        if emoji in message.text:
-            return
-            
-    if (
-            message.text.startswith("Hello")
-            or message.text.startswith("Hi")
-            or message.text.startswith("Hii")
-            or message.text.startswith("Hui")
-            or message.text.startswith("Hlo")
-            or message.text.startswith("Hloo")
-        ):
-            await message.reply_text(f"Hello {message.from_user.mention} How Are You ? \ni hope your fine\n\nIm A Artificial Intelligence Chat Robot Made By @ZeroXCoderZ \nMy Name Is Chiku\nTell Me Something About Yourself ")
-            return
-    else:
-        pass
-        
-    try:
-        if (
-            message.text.startswith("!")
-            or message.text.startswith("/")
-            or message.text.startswith("?")
-            or message.text.startswith("@")
-            or message.text.startswith("#")
-            or message.text.startswith("P")
-        ):
-            return
-        else:
-            user_id = message.from_user.id
-            user_message = message.text
-            api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
-            response = requests.get(api_url).json()["cnt"]
-            await client.send_chat_action(message.chat.id, ChatAction.TYPING)
-            await message.reply_text(response)
-    except Exception as e:
-        # Optionally, log the exception if needed
-        print(f"An error occurred: {str(e)}")
-
-
-
-@Chiku.on_message(filters.text & ~filters.bot & ~filters.group)
-async def handle_message(client, message):     
-    for emoji in Emojios:
-        if emoji in message.text:
-            return
-    try:
-        if (
-            message.text.startswith("!")
-            or message.text.startswith("/")
-            or message.text.startswith("?")
-            or message.text.startswith("@")
-            or message.text.startswith("#")
-            or message.text.startswith("P")
-        ):
-            return
-    except Exception:
-        pass
-
-    try:
-        chat_id = message.chat.id
-
-        # Check if the message is a reply to the bot or if there's no reply
-        if (message.reply_to_message and message.reply_to_message.from_user.is_self) or not message.reply_to_message:
-
-            chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
-            if chatbot_info:
+@Chiku.on_message(filters.text & ~filters.bot)
+async def handle_message(client, message):  
+    if message.chat.type == ChatType.PRIVATE:
+        for emoji in Emojis:
+            if emoji in message.text:
+                return
+        try:
+            if (
+                message.text.startswith("!")
+                or message.text.startswith("/")
+                or message.text.startswith("?")
+                or message.text.startswith("@")
+                or message.text.startswith("#")
+                or message.text.startswith("P")
+            ):
+                return
+            else:
                 user_id = message.from_user.id
+                user_message = message.text
                 api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
                 response = requests.get(api_url).json()["cnt"]
                 await client.send_chat_action(message.chat.id, ChatAction.TYPING)
                 await message.reply_text(response)
-            else:
-                pass  # If chatbot is not enabled, do nothing
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+    else:
+        chat_id = message.chat.id
+        chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
+        if chatbot_info:
+            for emoji in Emojis:
+                if emoji in message.text:
+                    return
+            try:
+                if (
+                    message.text.startswith("!")
+                    or message.text.startswith("/")
+                    or message.text.startswith("?")
+                    or message.text.startswith("@")
+                    or message.text.startswith("#")
+                    or message.text.startswith("P")
+                ):
+                    return
+                else:
+                    user_id = message.from_user.id
+                    user_message = message.text
+                    api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
+                    response = requests.get(api_url).json()["cnt"]
+                    await client.send_chat_action(message.chat.id, ChatAction.TYPING)
+                    await message.reply_text(response)
+            except Exception as e:
+                print(f"An error occurred: {str(e)}")
         else:
-            pass  # If the message doesn't meet the conditions, do nothing.
-    except Exception as e:
-        # Optionally, log the exception if needed
-        print(f"An error occurred: {str(e)}")
-
+            pass
 
