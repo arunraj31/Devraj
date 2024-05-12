@@ -66,10 +66,6 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
 
 @app.on_message(filters.text & ~filters.bot & ~filters.group)
 async def handle_message(client, message):
-    user_message = message.text
-    if user_message == "emoji":
-        return
-
     try:
         if (
             message.text.startswith("!")
@@ -106,7 +102,7 @@ async def handle_message(client, message):
 
 
 
-@app.on_message(filters.text & ~filters.private)
+@app.on_message(filters.text & ~filters.bot & ~filters.private)
 async def handlepvt_message(client, message):
     try:
         if (
