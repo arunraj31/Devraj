@@ -24,7 +24,7 @@ Emojios = [
 
 
 
-@Chiku.on_message(filters.text & ~filters.bot & ~filters.private)
+@Chiku.on_message(filters.text & ~filters.bot)
 async def handlepvt_message(client, message):
     if message.chat.type == ChatType.PRIVATE:
         pass
