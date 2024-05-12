@@ -86,7 +86,7 @@ async def chat_bot(client, message):
         "X-RapidAPI-Host": "adult-gpt.p.rapidapi.com"
     }
 
-    response = requests.post(url, json=payload, headers=headers))
+    response = requests.post(url, json=payload, headers=headers)
 
     result = response.json().get('result')
     await message.reply_text(result)
