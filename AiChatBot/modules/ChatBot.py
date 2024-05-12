@@ -12,6 +12,18 @@ from pyrogram.enums import ChatAction
 
 @Chiku.on_message(filters.text & ~filters.bot & ~filters.private)
 async def handlepvt_message(client, message):
+    if (
+            message.text.startswith("Hello")
+            or message.text.startswith("Hi")
+            or message.text.startswith("Hii")
+            or message.text.startswith("Hui")
+            or message.text.startswith("Hlo")
+            or message.text.startswith("Hloo")
+        ):
+            await message.reply_text(f"Hello {message.from_user.mention} How Are You ? \ni hope your fine\n\nIm A Artificial Intelligence Chat Robot Made By @ZeroXCoderZ \nMy Name Is Chiku\nTell Me Something About Yourself ")
+    else:
+        pass
+        
     try:
         if (
             message.text.startswith("!")
