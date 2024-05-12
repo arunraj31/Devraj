@@ -86,13 +86,7 @@ async def ChatiBot(msg):
 
 @app.on_message(filters.text & ~filters.bot & ~filters.group)
 async def handle_message(client, message: types.Message):
-    chat_id = message.chat.id
-
-    # Check if the chat ID is in the database and enabled
-    chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
-    if not chatbot_info:
-        return  # Do nothing if chat is not enabled
-
+    
     # Conditions for when the bot should respond
     if (message.reply_to_message and message.reply_to_message.from_user.is_self) or not message.reply_to_message:
         # Setup for RapidAPI call
