@@ -91,5 +91,3 @@ async def chat_bot(client, message):
     result = response.json().get('result')
     await message.reply_text(result)
 
-# Run the bot
-app.run()
