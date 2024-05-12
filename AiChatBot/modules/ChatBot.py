@@ -1,4 +1,4 @@
-from pyrogram import Client, filters, types
+from pyrogram import Client, filters, types, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from motor.motor_asyncio import AsyncIOMotorClient
 import requests
@@ -75,13 +75,8 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
         await query.answer("You are not an admin in this group.")
 
 
-@Chiku.on_message(filters.text & ~filters.bot)
+@Chiku.on_message(filters.text & ~filters.bot & ~filters.private)
 async def handlepvt_message(client, message):
-    if message.chat.type == ChatType.PRIVATE:
-        pass
-    else:
-        return
-        
     for emoji in Emojios:
         if emoji in message.text:
             return
@@ -119,3 +114,46 @@ async def handlepvt_message(client, message):
     except Exception as e:
         # Optionally, log the exception if needed
         print(f"An error occurred: {str(e)}")
+
+
+
+@Chiku.on_message(filters.text & ~filters.bot & ~filters.group)
+async def handle_message(client, message):     
+    for emoji in Emojios:
+        if emoji in message.text:
+            return
+    try:
+        if (
+            message.text.startswith("!")
+            or message.text.startswith("/")
+            or message.text.startswith("?")
+            or message.text.startswith("@")
+            or message.text.startswith("#")
+            or message.text.startswith("P")
+        ):
+            return
+    except Exception:
+        pass
+
+    try:
+        chat_id = message.chat.id
+
+        # Check if the message is a reply to the bot or if there's no reply
+        if (message.reply_to_message and message.reply_to_message.from_user.is_self) or not message.reply_to_message:
+
+            chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
+            if chatbot_info:
+                user_id = message.from_user.id
+                api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
+                response = requests.get(api_url).json()["cnt"]
+                await client.send_chat_action(message.chat.id, ChatAction.TYPING)
+                await message.reply_text(response)
+            else:
+                pass  # If chatbot is not enabled, do nothing
+        else:
+            pass  # If the message doesn't meet the conditions, do nothing.
+    except Exception as e:
+        # Optionally, log the exception if needed
+        print(f"An error occurred: {str(e)}")
+
+
