@@ -1,12 +1,10 @@
-from pyrogram import Client, filters, types, enums
+from pyrogram import Client, filters, types
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from motor.motor_asyncio import AsyncIOMotorClient
 import requests
 from config import *
 from AiChatBot import Chiku
-from pyrogram.enums import ChatAction
-
-
+from pyrogram.enums import ChatAction, ChatType
 
 
 Emojios = [
@@ -28,6 +26,11 @@ Emojios = [
 
 @Chiku.on_message(filters.text & ~filters.bot & ~filters.private)
 async def handlepvt_message(client, message):
+    if message.chat.type == ChatType.PRIVATE:
+        pass
+    else:
+        return
+        
     for emoji in Emojios:
         if emoji in message.text:
             return
@@ -41,6 +44,7 @@ async def handlepvt_message(client, message):
             or message.text.startswith("Hloo")
         ):
             await message.reply_text(f"Hello {message.from_user.mention} How Are You ? \ni hope your fine\n\nIm A Artificial Intelligence Chat Robot Made By @ZeroXCoderZ \nMy Name Is Chiku\nTell Me Something About Yourself ")
+            return
     else:
         pass
         
