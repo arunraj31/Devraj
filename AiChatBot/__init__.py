@@ -33,8 +33,8 @@ Chiku = Client(
 
 async def pikachuuu():
     global BOT_ID, BOT_NAME
-    await murali.start()
-    getme = await murali.get_me()
+    await Chiku.start()
+    getme = await Chiku.get_me()
     BOT_ID = getme.id
     if getme.last_name:
         BOT_NAME = getme.first_name + " " + getme.last_name
