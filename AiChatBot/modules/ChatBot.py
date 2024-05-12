@@ -1,14 +1,14 @@
 from pyrogram import Client, filters, types, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 import requests
-from AiChatBot import murali as app
+from AiChatBot import Chiku
 from pyrogram.enums import ChatAction
 
 
 
 
 
-@app.on_message(filters.private & filters.text)
+@Chiku.on_message(filters.private & filters.text)
 async def chat_bot(client, message):
     url = "https://adult-gpt.p.rapidapi.com/adultgpt"
 
