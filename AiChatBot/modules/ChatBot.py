@@ -68,7 +68,7 @@ async def handle_message(client, message: types.Message):
     chat_id = message.chat.id
 
     # Check if the chat ID is in the database and enabled
-    chatbot_info = chatbotdatabase.find_one({"chat_id": chat_id})
+    chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
     if not chatbot_info:
         return  # Do nothing if chat is not enabled
 
