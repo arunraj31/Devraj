@@ -120,7 +120,7 @@ async def handle_message(client, message):
                         or message.text.startswith("?")
                         or message.text.startswith("@")
                         or message.text.startswith("#")
-                        or message.text.startswith("P")
+                     #   or message.text.startswith("P")
                     ):
                         return
                     else:
