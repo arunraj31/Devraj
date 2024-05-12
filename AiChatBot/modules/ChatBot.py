@@ -28,6 +28,10 @@ Emojios = [
 
 @Chiku.on_message(filters.text & ~filters.bot & ~filters.private)
 async def handlepvt_message(client, message):
+    for emoji in Emojios:
+        if emoji in message.text:
+            return
+            
     if (
             message.text.startswith("Hello")
             or message.text.startswith("Hi")
