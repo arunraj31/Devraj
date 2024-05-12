@@ -1,6 +1,8 @@
 from pyrogram import Client, filters, types, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from motor.motor_asyncio import AsyncIOMotorClient
 import requests
+from config import *
 from AiChatBot import Chiku
 from pyrogram.enums import ChatAction
 
@@ -8,33 +10,25 @@ from pyrogram.enums import ChatAction
 
 
 
-@Chiku.on_message(filters.private & filters.text)
-async def chat_bot(client, message):
-    url = "https://adult-gpt.p.rapidapi.com/adultgpt"
-
-    payload = {
-        "messages": [
-            {
-                "role": "user",
-                "content": message.text
-            }
-        ],
-        "genere": "ai-hen-rei_suz",
-        "bot_name": "",
-        "temperature": 0.9,
-        "top_k": 10,
-        "top_p": 0.9,
-        "max_tokens": 200
-    }
-    headers = {
-        "content-type": "application/json",
-        "X-RapidAPI-Key": "5198e8e03dmsh8964c5e124e2423p1465fcjsn24fee55d765b",
-        "X-RapidAPI-Host": "adult-gpt.p.rapidapi.com"
-    }
-
-    response = requests.post(url, json=payload, headers=headers)
-
-    result = response.json().get('result')
-    await client.send_chat_action(message.chat.id, ChatAction.TYPING)
-    await message.reply_text(result)
-
+@Chiku.on_message(filters.text & ~filters.bot & ~filters.private)
+async def handlepvt_message(client, message):
+    try:
+        if (
+            message.text.startswith("!")
+            or message.text.startswith("/")
+            or message.text.startswith("?")
+            or message.text.startswith("@")
+            or message.text.startswith("#")
+            or message.text.startswith("P")
+        ):
+            return
+        else:
+            user_id = message.from_user.id
+            user_message = message.text
+            api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
+            response = requests.get(api_url).json()["cnt"]
+            await client.send_chat_action(message.chat.id, ChatAction.TYPING)
+            await message.reply_text(response)
+    except Exception as e:
+        # Optionally, log the exception if needed
+        print(f"An error occurred: {str(e)}")
