@@ -63,45 +63,40 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
 
 
 
-
 @app.on_message(filters.text & ~filters.bot & ~filters.group)
-async def handle_message(client, message):
-    try:
-        if (
-            message.text.startswith("!")
-            or message.text.startswith("/")
-            or message.text.startswith("?")
-            or message.text.startswith("@")
-            or message.text.startswith("#")
-            or message.text.startswith("P")
-        ):
-            return
-    except Exception:
-        pass
+async def handle_message(client, message: types.Message):
+    chat_id = message.chat.id
 
-    try:
-        chat_id = message.chat.id
+    # Check if the chat ID is in the database and enabled
+    chatbot_info = chatbotdatabase.find_one({"chat_id": chat_id})
+    if not chatbot_info:
+        return  # Do nothing if chat is not enabled
 
-        # Check if the message is a reply to the bot or if there's no reply
-        if (message.reply_to_message and message.reply_to_message.from_user.is_self) or not message.reply_to_message:
+    # Conditions for when the bot should respond
+    if (message.reply_to_message and message.reply_to_message.from_user.is_self) or not message.reply_to_message:
+        # Setup for RapidAPI call
+        url = "https://adult-gpt.p.rapidapi.com/adultgpt"
+        headers = {
+            "content-type": "application/json",
+            "X-RapidAPI-Key": "5198e8e03dmsh8964c5e124e2423p1465fcjsn24fee55d765b",
+            "X-RapidAPI-Host": "adult-gpt.p.rapidapi.com"
+        }
+        payload = {
+            "messages": [{"role": "user", "content": message.text}],
+            "genere": "ai-hen-rei_suz",
+            "bot_name": "",
+            "temperature": 0.9,
+            "top_k": 10,
+            "top_p": 0.9,
+            "max_tokens": 200
+        }
+        response = requests.post(url, json=payload, headers=headers).json()
+        result = response['result']  
 
-            chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
-            if chatbot_info:
-                user_id = message.from_user.id
-                api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
-                response = requests.get(api_url).json()["cnt"]
-                await client.send_chat_action(message.chat.id, ChatAction.TYPING)
-                await message.reply_text(response)
-            else:
-                pass  # If chatbot is not enabled, do nothing
-        else:
-            pass  # If the message doesn't meet the conditions, do nothing.
-    except Exception as e:
-        # Optionally, log the exception if needed
-        print(f"An error occurred: {str(e)}")
+        await message.reply_text(result)
 
 
-
+TEXT = f"""
 @app.on_message(filters.text & ~filters.bot & ~filters.private)
 async def handlepvt_message(client, message):
     try:
@@ -124,3 +119,4 @@ async def handlepvt_message(client, message):
     except Exception as e:
         # Optionally, log the exception if needed
         print(f"An error occurred: {str(e)}")
+"""
