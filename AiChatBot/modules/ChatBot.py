@@ -130,8 +130,8 @@ async def handle_message(client, message):
             )
                                      )
             await add_served_user(user_id)
-       else:
-           pass        
+        else:
+            pass        
         try:
             user_id = message.from_user.id
             user_message = message.text
