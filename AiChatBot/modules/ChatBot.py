@@ -136,7 +136,7 @@ async def handle_message(client, message):
             pass        
         if message.text.startswith("/stats"):
             await message.reply_text(
-            f"""ᴛᴏᴛᴀʟ sᴛᴀᴛs ᴏғ {Chiku.mention} :
+            f"""ᴛᴏᴛᴀʟ sᴛᴀᴛs ᴏғ chiku bot :
 
 ➻ **ᴄʜᴀᴛs :** {chats}
 ➻ **ᴜsᴇʀs :** {users}
