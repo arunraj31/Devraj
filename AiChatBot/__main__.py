@@ -7,7 +7,6 @@ LOGGER_ID = -1002113460681
 loop = asyncio.get_event_loop()
 
 async def pikachuu():
-    await Chiku.start()
     for all_module in ALL_MODULES:
         importlib.import_module("AiChatBot.modules." + all_module)
     print("𝖻𝗈𝗍 𝗌𝗎𝖼𝖼𝖾𝗌𝗌𝖿𝗎𝗅 𝗌𝗍𝖺𝗋𝗍")
