@@ -33,8 +33,8 @@ async def is_admin(chat_id: int, user_id: int) -> bool:
 @Chiku.on_message(filters.command("chatbot") & filters.group)
 async def chatbot_command(_, message: Message):
     if await is_admin(message.chat.id, message.from_user.id):
-    response = requests.get("https://nekos.best/api/v2/neko").json()
-    image_url = response["results"][0]["url"]
+        response = requests.get("https://nekos.best/api/v2/neko").json()
+        image_url = response["results"][0]["url"]
         keyboard = InlineKeyboardMarkup(
             [
                 [
