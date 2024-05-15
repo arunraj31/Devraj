@@ -4,8 +4,12 @@ from AiChatBot.Db import get_served_chats, get_served_users
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-@Chiku.on_message(filters.command("stats") & filters.user(OWNER_ID))
+@Chiku.on_cmd(["stats", "statss"])
 async def stats(cli: Client, message: Message):
+    if message.from_user.id == OWNER_ID:
+        pass
+    else:
+        return 
     try:
         users = len(await get_served_users())
         chats = len(await get_served_chats())
