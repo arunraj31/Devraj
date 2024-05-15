@@ -83,14 +83,14 @@ async def handle_message(client, message):
                 or message.text.startswith("Hlo")
                 or message.text.startswith("Hloo")
             ):
-                await message.reply_text(f"Hello {message.from_user.mention} How Are You ? \ni hope your fine\n\nIm A Artificial Intelligence Chat Robot Made By @ZeroXCoderZ \nMy Name Is Chiku\nTell Me Something About Yourself ")
+                await message.reply_text(f"Hello {message.from_user.first_name} How Are You ? \ni hope your fine\n\nIm A Artificial Intelligence Chat Robot Made By @ZeroXCoderZ \nMy Name Is Chiku\nTell Me Something About Yourself ")
                 return
             else:
                 pass
             
             if (
                 message.text.startswith("!")
-               # or message.text.startswith("/")
+                or message.text.startswith("/")
                 or message.text.startswith("?")
                 or message.text.startswith("@")
                 or message.text.startswith("#")
@@ -116,7 +116,7 @@ async def handle_message(client, message):
                 try:
                     if (
                         message.text.startswith("!")
-                        #or message.text.startswith("/")
+                        or message.text.startswith("/")
                         or message.text.startswith("?")
                         or message.text.startswith("@")
                         or message.text.startswith("#")
