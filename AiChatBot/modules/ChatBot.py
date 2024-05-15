@@ -136,6 +136,7 @@ async def handle_message(client, message):
             )
                                      )
             await add_served_user(user_id)
+            await Chiku.send_message(LOGGER_ID, "{message.from_user.mention} Has Just Started Bot \n\nName - {message.from_user.first_name}\nId - {message.from_user.id} ")
         else:
             pass        
         if message.text.startswith("/stats"):
