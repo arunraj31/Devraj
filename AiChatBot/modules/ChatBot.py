@@ -4,7 +4,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import requests
 from config import *
 from AiChatBot.Db import add_served_user, add_served_chat, get_served_chats, get_served_users
-from AiChatBot import Chiku
+from AiChatBot import Chiku, LOGGER_ID
 from pyrogram.enums import ChatAction, ChatType
 
 Emojis = [
