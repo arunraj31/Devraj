@@ -111,7 +111,7 @@ async def handle_message(client, message):
                 return
         except Exception:
             pass
-        if message.text.startswith("/start")
+        if message.text.startswith("/start"):
             await message.reply_photo(image_url, caption=f"hello", reply_markup=InlineKeyboardMarkup(
             [
                 [
