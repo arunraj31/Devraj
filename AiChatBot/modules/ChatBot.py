@@ -152,7 +152,7 @@ async def handle_message(client, message):
                 try:
                     if (
                         message.text.startswith("!")
-                        or message.text.startswith("/")
+                        #or message.text.startswith("/")
                         or message.text.startswith("?")
                         or message.text.startswith("@")
                         or message.text.startswith("#")
