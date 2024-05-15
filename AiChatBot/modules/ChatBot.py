@@ -45,7 +45,7 @@ async def chatbot_command(_, message: Message):
         )
         await message.reply_photo(image_url, caption="Choose an option:", reply_markup=keyboard)
     else:
-        await message.reply_text("You are not an admin in this group.")
+        await message.reply_text("You are not an admin in this group.", show_alert=True)
 
 @Chiku.on_callback_query(filters.regex(r"^(enable|disable)_chatbot$"))
 async def enable_disable_chatbot(_, query: types.CallbackQuery):
@@ -55,21 +55,21 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
     if await is_admin(chat_id, query.from_user.id):
         if action == "enable_chatbot":
             if await chatbotdatabase.find_one({"chat_id": chat_id}):
-                await query.answer("Chatbot is already enabled.", show_alert=true)
+                await query.answer("Chatbot is already enabled.", show_alert=True)
             else:
                 await chatbotdatabase.insert_one({"chat_id": chat_id, "admin_id": query.from_user.id})
-                await query.answer("Chatbot enabled successfully!", show_alert=true)
+                await query.answer("Chatbot enabled successfully!", show_alert=True)
                 await query.message.edit_text(f"Chatbot enabled by {query.from_user.mention()}")
         else:
             chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
             if chatbot_info:
                 await chatbotdatabase.delete_one({"chat_id": chat_id})
-                await query.answer("Chatbot disabled successfully!", show_alert=true)
+                await query.answer("Chatbot disabled successfully!", show_alert=True)
                 await query.message.edit_text("Chatbot disabled.")
             else:
-                await query.answer("Chatbot is not enabled for this chat.", show_alert=true)
+                await query.answer("Chatbot is not enabled for this chat.", show_alert=True)
     else:
-        await query.answer("You are not an admin in this group.", show_alert=true)
+        await query.answer("You are not an admin in this group.", show_alert=True)
 
 
 
