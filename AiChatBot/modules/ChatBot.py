@@ -33,6 +33,8 @@ async def is_admin(chat_id: int, user_id: int) -> bool:
 @Chiku.on_message(filters.command("chatbot") & filters.group)
 async def chatbot_command(_, message: Message):
     if await is_admin(message.chat.id, message.from_user.id):
+    response = requests.get("https://nekos.best/api/v2/neko").json()
+    image_url = response["results"][0]["url"]
         keyboard = InlineKeyboardMarkup(
             [
                 [
@@ -41,7 +43,7 @@ async def chatbot_command(_, message: Message):
                 ]
             ]
         )
-        await message.reply_text("Choose an option:", reply_markup=keyboard)
+        await message.reply_photo(image_url, caption="Choose an option:", reply_markup=keyboard)
     else:
         await message.reply_text("You are not an admin in this group.")
 
@@ -53,21 +55,21 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
     if await is_admin(chat_id, query.from_user.id):
         if action == "enable_chatbot":
             if await chatbotdatabase.find_one({"chat_id": chat_id}):
-                await query.answer("Chatbot is already enabled.")
+                await query.answer("Chatbot is already enabled.", show_alert=true)
             else:
                 await chatbotdatabase.insert_one({"chat_id": chat_id, "admin_id": query.from_user.id})
-                await query.answer("Chatbot enabled successfully!")
+                await query.answer("Chatbot enabled successfully!", show_alert=true)
                 await query.message.edit_text(f"Chatbot enabled by {query.from_user.mention()}")
         else:
             chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
             if chatbot_info:
                 await chatbotdatabase.delete_one({"chat_id": chat_id})
-                await query.answer("Chatbot disabled successfully!")
+                await query.answer("Chatbot disabled successfully!", show_alert=true)
                 await query.message.edit_text("Chatbot disabled.")
             else:
-                await query.answer("Chatbot is not enabled for this chat.")
+                await query.answer("Chatbot is not enabled for this chat.", show_alert=true)
     else:
-        await query.answer("You are not an admin in this group.")
+        await query.answer("You are not an admin in this group.", show_alert=true)
 
 
 
