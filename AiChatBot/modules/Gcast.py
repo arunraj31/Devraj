@@ -3,6 +3,7 @@ import asyncio
 from pyrogram import client, filters
 from config import OWNER_ID
 from pyrogram.errors import FloodWait
+from AiChatBot.db import get_served_chats, get_served_users
 
 @Chiku.on_message(filters.command(["broadcast", "Gcast"]))
 async def braodcast_message(client, message, _):
