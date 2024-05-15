@@ -3,7 +3,7 @@ import importlib
 from pyrogram import idle
 from AiChatBot import Chiku
 from AiChatBot.modules import ALL_MODULES
-LOGGER_ID = -1002113460681
+
 loop = asyncio.get_event_loop()
 
 async def pikachuu():
