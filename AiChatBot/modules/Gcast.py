@@ -22,10 +22,6 @@ async def braodcast_message(client, message, _):
             query = query.replace("-pin", "")
         if "-nobot" in query:
             query = query.replace("-nobot", "")
-        if "-pinloud" in query:
-            query = query.replace("-pinloud", "")
-        if "-assistant" in query:
-            query = query.replace("-assistant", "")
         if "-user" in query:
             query = query.replace("-user", "")
         if query == "":
@@ -74,3 +70,31 @@ async def braodcast_message(client, message, _):
             await message.reply_text("broadcasted message in {} chats with {} pins from bot ")
         except:
             pass
+
+            
+    if "-user" in message.text:
+        susr = 0
+        served_users = []
+        susers = await get_served_users()
+        for user in susers:
+            served_users.append(int(user["user_id"]))
+        for i in served_users:
+            try:
+                m = (
+                    await app.forward_messages(i, y, x)
+                    if message.reply_to_message
+                    else await Chiku.send_message(i, text=query)
+                )
+                susr += 1
+            except FloodWait as e:
+                flood_time = int(e.x)
+                if flood_time > 200:
+                    continue
+                await asyncio.sleep(flood_time)
+            except Exception:
+                pass
+        try:
+            await message.reply_text(_["broad_7"].format(susr))
+        except:
+            pass
+
