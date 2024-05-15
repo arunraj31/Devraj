@@ -21,7 +21,7 @@ async def on_new_chat_members(client: Client, message: Message):
         else:
             chatusername = await client.export_chat_invite_link(message.chat.id)
         for member in message.new_chat_members:
-            if member.id == app.id:
+            if member.id == 6708963396:
                 count = await app.get_chat_members_count(chat_id)
         msg = (
             f"❄️ <b><u>ʙᴏᴛ #ᴀᴅᴅᴇᴅ ᴛᴏ ɴᴇᴡ ɢʀᴏᴜᴘ </u></b> \n\n"
@@ -55,7 +55,7 @@ async def on_left_chat_member(_, message: Message):
             f"๏ ɢʀᴏᴜᴘ ɴᴀᴍᴇ ➠ {title}\n"
             f"๏ ɢʀᴏᴜᴘ ɪᴅ ➠ {chat_id}\n"
             f"๏ ʙᴏᴛ ʀᴇᴍᴏᴠᴇᴅ ʙʏ ➠ {remove_by}\n"
-            f"๏ ʙᴏᴛ ɴᴀᴍᴇ ➠ @{app.username}"
+           # f"๏ ʙᴏᴛ ɴᴀᴍᴇ ➠ @{app.username}"
         )
         await app.send_photo(LOG_GROUP_ID, photo=image_url, caption=left, reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(f"ᴀᴅᴅ ᴍᴇ ʙᴀʙʏ", url=f"https://t.me/{app.username}?startgroup=true")]
