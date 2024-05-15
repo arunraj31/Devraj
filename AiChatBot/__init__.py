@@ -8,7 +8,7 @@ from pyrogram import Client
 from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID
 from pyrogram.enums import ParseMode
 
-
+LOGGER_ID = -1002113460681
 
 loop = asyncio.get_event_loop()
 load_dotenv()
