@@ -4,7 +4,7 @@ from AiChatBot.Db import get_served_chats, get_served_users
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-@Chiku.on_cmd(["stats", "statss"])
+@Chiku.on_message(filters.command("stats"))
 async def stats(cli: Client, message: Message):
     if message.from_user.id == OWNER_ID:
         pass
