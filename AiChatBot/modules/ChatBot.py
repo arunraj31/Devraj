@@ -68,6 +68,8 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
     else:
         await query.answer("You are not an admin in this group.")
 
+
+
 @Chiku.on_message(filters.text & ~filters.bot)
 async def handle_message(client, message):  
     if message.chat.type == ChatType.PRIVATE:
@@ -87,7 +89,9 @@ async def handle_message(client, message):
                 return
             else:
                 pass
-            
+        except Exception:
+            pass
+        try:
             if (
                 message.text.startswith("!")
                 or message.text.startswith("/")
@@ -96,13 +100,15 @@ async def handle_message(client, message):
                 or message.text.startswith("#")
             ):
                 return
-            else:
-                user_id = message.from_user.id
-                user_message = message.text
-                api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
-                response = requests.get(api_url).json()["cnt"]
-                await client.send_chat_action(message.chat.id, ChatAction.TYPING)
-                await message.reply_text(response)
+        except Exception:
+            pass
+        try:
+            user_id = message.from_user.id
+            user_message = message.text
+            api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
+            response = requests.get(api_url).json()["cnt"]
+            await client.send_chat_action(message.chat.id, ChatAction.TYPING)
+            await message.reply_text(response)
         except Exception as e:
             print(f"An error occurred: {str(e)}")
     else:
@@ -120,17 +126,16 @@ async def handle_message(client, message):
                         or message.text.startswith("?")
                         or message.text.startswith("@")
                         or message.text.startswith("#")
-                     #   or message.text.startswith("P")
                     ):
                         return
-                    else:
-                        user_id = message.from_user.id
-                        user_message = message.text
-                        api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
-                        response = requests.get(api_url).json()["cnt"]
-                        await client.send_chat_action(message.chat.id, ChatAction.TYPING)
-                        await message.reply_text(response)
+                except Exception:
+                    pass
+                try:
+                    user_id = message.from_user.id
+                    user_message = message.text
+                    api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
+                    response = requests.get(api_url).json()["cnt"]
+                    await client.send_chat_action(message.chat.id, ChatAction.TYPING)
+                    await message.reply_text(response)
                 except Exception as e:
                     print(f"An error occurred: {str(e)}")
-            else:
-                pass
