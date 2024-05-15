@@ -72,6 +72,14 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
 
 @Chiku.on_message(filters.text & ~filters.bot)
 async def handle_message(client, message):  
+    response = requests.get("https://nekos.best/api/v2/neko").json()
+    image_url = response["results"][0]["url"]
+    try:
+        await Chiku.resolve_peer(OWNER_ID[0])
+        OWNER = OWNER_ID[0]
+    except:
+        OWNER = f"tg://openmessage?user_id=6844821478"
+        
     if message.chat.type == ChatType.PRIVATE:
         for emoji in Emojis:
             if emoji in message.text:
@@ -94,7 +102,7 @@ async def handle_message(client, message):
         try:
             if (
                 message.text.startswith("!")
-                or message.text.startswith("/")
+              #  or message.text.startswith("/")
                 or message.text.startswith("?")
                 or message.text.startswith("@")
                 or message.text.startswith("#")
@@ -102,6 +110,26 @@ async def handle_message(client, message):
                 return
         except Exception:
             pass
+        if message.text.startswith("/start")
+            await message.reply_photo(image_url, caption=f"hello", reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="add me",
+                        url=f"https://t.me/Pokemon",
+                    ),
+                ],
+                [
+                    InlineKeyboardButton(
+                        text="owner",
+                        user_id=OWNER,
+                    ),
+                ],
+            ]
+        )
+                                     )
+       else:
+           pass        
         try:
             user_id = message.from_user.id
             user_message = message.text
