@@ -3,7 +3,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from motor.motor_asyncio import AsyncIOMotorClient
 import requests
 from config import *
-from AiChatBot.Db import add_served_user, add_served_chat
+from AiChatBot.Db import add_served_user, add_served_chat, get_served_chats, get_served_users
 from AiChatBot import Chiku
 from pyrogram.enums import ChatAction, ChatType
 
@@ -75,6 +75,8 @@ async def enable_disable_chatbot(_, query: types.CallbackQuery):
 async def handle_message(client, message):  
     response = requests.get("https://nekos.best/api/v2/neko").json()
     image_url = response["results"][0]["url"]
+    users = len(await get_served_users())
+    chats = len(await get_served_chats())
     try:
         await Chiku.resolve_peer(OWNER_ID[0])
         OWNER = OWNER_ID[0]
@@ -132,6 +134,17 @@ async def handle_message(client, message):
             await add_served_user(user_id)
         else:
             pass        
+        if message.text.startswith("/stats"):
+            await message.reply_text(
+            f"""ᴛᴏᴛᴀʟ sᴛᴀᴛs ᴏғ {Chiku.mention} :
+
+➻ **ᴄʜᴀᴛs :** {chats}
+➻ **ᴜsᴇʀs :** {users}
+"""
+            )
+        else:
+            pass
+            
         try:
             user_id = message.from_user.id
             user_message = message.text
