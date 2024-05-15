@@ -1,7 +1,7 @@
 from AiChatBot import Chiku
 from config import OWNER_ID 
 from AiChatBot.Db import get_served_chats, get_served_users
-from pyrogram import client, filters
+from pyrogram import Client, filters
 from pyrogram.types import Message
 
 
