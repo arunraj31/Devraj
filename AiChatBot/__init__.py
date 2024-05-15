@@ -22,24 +22,24 @@ logging.basicConfig(
 
 
 
-Chiku = Client(
-    ":ChikuBot:",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN,
-)
+class Chiku(Client):
+    def __init__(self):
+        super().__init__(
+            name="ChikuBot",
+            api_id=API_ID,
+            api_hash=API_HASH,
+            lang_code="en",
+            bot_token=BOT_TOKEN,
+            in_memory=True,
+            parse_mode=ParseMode.DEFAULT,
+        )
+    async def start(self):
+        await super().start()
+        self.id = self.me.id
+        self.name = self.me.first_name + " " + (self.me.last_name or "")
+        self.username = self.me.username
+        self.mention = self.me.mention
+        
 
 
-
-async def pikachuuu():
-    global BOT_ID, BOT_NAME
-    await Chiku.start()
-    getme = await Chiku.get_me()
-    BOT_ID = getme.id
-    if getme.last_name:
-        BOT_NAME = getme.first_name + " " + getme.last_name
-    else:
-        BOT_NAME = getme.first_name
-
-
-loop.run_until_complete(pikachuuu())
+Chiku = Chiku()
