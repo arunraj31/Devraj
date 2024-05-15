@@ -83,6 +83,8 @@ async def handle_message(client, message):
     except:
         OWNER = OWNER_ID[0]
     user_id = message.from_user.id
+    if "Developer" in message.text:
+        return await message.reply_text("My Developer Is My Cute Owner Murali (@ZeroXCoderz)")
     if message.chat.type == ChatType.PRIVATE:
         for emoji in Emojis:
             if emoji in message.text:
@@ -173,6 +175,10 @@ async def handle_message(client, message):
                         return
                 except Exception:
                     pass
+                if "Developer" in message.text:
+                    return await message.reply_text("My Developer Is My Cute Owner Murali (@ZeroXCoderz)")
+                if "owner" in message.text:
+                    return await message.reply_text("my cute owner is Murali ")
                 try:
                     user_id = message.from_user.id
                     user_message = message.text
