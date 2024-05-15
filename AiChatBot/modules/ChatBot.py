@@ -38,8 +38,8 @@ async def chatbot_command(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="Enable", callback_data="enable_chatbot"),
-                    InlineKeyboardButton(text="Disable", callback_data="disable_chatbot"),
+                    InlineKeyboardButton(text="Eɴᴀʙʟᴇ", callback_data="enable_chatbot"),
+                    InlineKeyboardButton(text="Dᴇsᴀʙʟᴇ", callback_data="disable_chatbot"),
                 ]
             ]
         )
@@ -122,13 +122,13 @@ async def handle_message(client, message):
             [
                 [
                     InlineKeyboardButton(
-                        text="add me",
-                        url=f"https://t.me/Pokemon",
+                        text="ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ 💓",
+                        url=f"https://t.me/ChikuOpBot?startgroup=true",
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        text="owner",
+                        text="ᴍʏ ᴄᴜᴛᴇ ᴅᴇᴠᴇʟᴏᴘᴇʀ 🥀",
                         user_id=OWNER,
                     ),
                 ],
