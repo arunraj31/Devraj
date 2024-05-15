@@ -3,6 +3,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from motor.motor_asyncio import AsyncIOMotorClient
 import requests
 from config import *
+from AiChatBot.Db import add_served_user
 from AiChatBot import Chiku
 from pyrogram.enums import ChatAction, ChatType
 
@@ -79,7 +80,7 @@ async def handle_message(client, message):
         OWNER = OWNER_ID[0]
     except:
         OWNER = f"tg://openmessage?user_id=6844821478"
-        
+    user_id = message.from_user.id
     if message.chat.type == ChatType.PRIVATE:
         for emoji in Emojis:
             if emoji in message.text:
@@ -128,6 +129,7 @@ async def handle_message(client, message):
             ]
         )
                                      )
+       await add_served_user(user_id)
        else:
            pass        
         try:
