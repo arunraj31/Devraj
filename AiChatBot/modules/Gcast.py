@@ -5,7 +5,7 @@ from config import OWNER_ID
 from pyrogram.errors import FloodWait
 from AiChatBot.Db import get_served_chats, get_served_users
 
-@Chiku.on_cmd(["broadcast", "gcast"])
+@Chiku.on_message(filters.command(["broadcast", "Gcast"]))
 async def braodcast_message(client, message, _):
     if message.from_user.id not in OWNER_ID:
         return await message.reply_text(
