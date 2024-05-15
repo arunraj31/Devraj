@@ -3,7 +3,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from motor.motor_asyncio import AsyncIOMotorClient
 import requests
 from config import *
-from AiChatBot.Db import add_served_user
+from AiChatBot.Db import add_served_user, add_served_chat
 from AiChatBot import Chiku
 from pyrogram.enums import ChatAction, ChatType
 
@@ -127,9 +127,9 @@ async def handle_message(client, message):
                     ),
                 ],
             ]
-        )
+            )
                                      )
-       await add_served_user(user_id)
+            await add_served_user(user_id)
        else:
            pass        
         try:
@@ -167,5 +167,9 @@ async def handle_message(client, message):
                     response = requests.get(api_url).json()["cnt"]
                     await client.send_chat_action(message.chat.id, ChatAction.TYPING)
                     await message.reply_text(response)
+                    try:
+                        await add_served_chat(message.chat.id)
+                    except:
+                        pass
                 except Exception as e:
                     print(f"An error occurred: {str(e)}")
