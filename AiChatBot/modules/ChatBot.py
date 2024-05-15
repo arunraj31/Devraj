@@ -79,7 +79,7 @@ async def handle_message(client, message):
         await Chiku.resolve_peer(OWNER_ID[0])
         OWNER = OWNER_ID[0]
     except:
-        OWNER = f"tg://openmessage?user_id=6844821478"
+        OWNER = OWNER_ID[0]
     user_id = message.from_user.id
     if message.chat.type == ChatType.PRIVATE:
         for emoji in Emojis:
