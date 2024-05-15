@@ -87,6 +87,8 @@ async def handle_message(client, message):
     user_id = message.from_user.id
     if "Developer" in message.text:
         return await message.reply_text("My Developer Is My Cute Owner Murali (@ZeroXCoderz)")
+    if "I Hate You" in message.text:
+        return await message.reply_text("Please tell me what I did to make you angry? \nYour Feedback Is Important To Me \nPlease Report To My Devoloper")
     if message.chat.type == ChatType.PRIVATE:
         for emoji in Emojis:
             if emoji in message.text:
