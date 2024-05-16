@@ -15,7 +15,7 @@
    
 
    
-<h1 align="center"><b>❄️ ༄ 𝑪𝑼𝑻𝑬  ✘ 𝑴𝑼𝑺𝑰𝑪 ࿐ 🕊️</b></h1>
+<h1 align="center"><b> Cԋιƙυ 💓࿐ </b></h1>
 
 
 ![Cutee Cat](https://media.giphy.com/media/eolhNCPI9iVbyEa5KX/giphy.gif)
