@@ -18,7 +18,7 @@
 <h1 align="center"><b> Cԋιƙυ 💓࿐ </b></h1>
 
 
-![Cutee Cat](https://media.giphy.com/media/eolhNCPI9iVbyEa5KX/giphy.gif)
+![Cutee Cat](https://media.giphy.com/media/oGTtrMPZhFmD5AzRYJ/giphy.gif)
 
 
  ─「 ᴅᴇᴩʟᴏʏ ᴏɴ ʜᴇʀᴏᴋᴜ 」─
