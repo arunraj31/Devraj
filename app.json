@@ -19,6 +19,10 @@
       "description": "Your Telegram User ID (Owner)",
       "required": true
     },
+    "LOGGER_ID": {
+      "description": "A telegram group id add your bot in that group and promote to admin",
+      "required": true
+    },
     "MONGO_URL": {
       "description": "Your mongo db url",
       "required": true
