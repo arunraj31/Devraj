@@ -1,7 +1,7 @@
 {
   "name": "AiChatBot",
   "description": "Telegram Bot using Pyrogram",
-  "repository": "https://github.com/ZeroXCoderZ/AiChatBot",
+  "repository": "https://github.com/ZeroXCoderZ/ChikuBot",
   "env": {
     "API_ID": {
       "description": "Your Telegram API ID",
