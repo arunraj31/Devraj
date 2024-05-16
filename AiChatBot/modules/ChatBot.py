@@ -157,7 +157,7 @@ async def handle_message(client, message):
         try:
             user_id = message.from_user.id
             user_message = message.text
-            api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
+            api_url = f"http://api.brainshop.ai/get?bid=181999&key=BTx5oIaCq8Cqut3S&uid={user_id}8&msg={user_message}"
             response = requests.get(api_url).json()["cnt"]
             await client.send_chat_action(message.chat.id, ChatAction.TYPING)
             await message.reply_text(response)
