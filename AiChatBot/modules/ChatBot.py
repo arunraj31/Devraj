@@ -85,12 +85,6 @@ async def handle_message(client, message):
     except:
         OWNER = OWNER_ID[0]
     user_id = message.from_user.id
-    if "Developer" in message.text:
-        return await message.reply_text("My Developer Is My Cute Owner Murali (@ZeroXCoderz)")
-    if "I Hate You" in message.text:
-        return await message.reply_text("Please tell me what I did to make you angry? \nYour Feedback Is Important To Me \nPlease Report To My Devoloper")
-    if "i hate you" in message.text:
-        return await message.reply_text("Please tell me what I did to make you angry? \nYour Feedback Is Important To Me \nPlease Report To My Devoloper")
     if message.chat.type == ChatType.PRIVATE:
         for emoji in Emojis:
             if emoji in message.text:
@@ -182,14 +176,10 @@ async def handle_message(client, message):
                         return
                 except Exception:
                     pass
-                if "Developer" in message.text:
-                    return await message.reply_text("My Developer Is My Cute Owner Murali (@ZeroXCoderz)")
-                if "owner" in message.text:
-                    return await message.reply_text("my cute owner is Murali ")
                 try:
                     user_id = message.from_user.id
                     user_message = message.text
-                    api_url = f"http://api.brainshop.ai/get?bid=180331&key=1EGyiLpUu4Vv6mwy&uid={user_id}&msg={user_message}"
+                    api_url = f"http://api.brainshop.ai/get?bid=181999&key=BTx5oIaCq8Cqut3S&uid={user_id}8&msg={user_message}"
                     response = requests.get(api_url).json()["cnt"]
                     await client.send_chat_action(message.chat.id, ChatAction.TYPING)
                     await message.reply_text(response)
