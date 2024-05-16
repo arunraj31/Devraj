@@ -122,7 +122,7 @@ async def handle_message(client, message):
         except Exception:
             pass
         if message.text.startswith("/start"):
-            await message.reply_photo(image_url, caption=f"ʜᴇʟʟᴏ {message.from_user.first_name}\n\nMʏ Nᴀᴍᴇ Is Cʜɪᴋᴜ 🥀\nᴀ ᴀʀᴛɪғɪᴄɪᴀʟ ɪɴᴛᴇʟʟɪɢᴇɴᴄᴇ ᴄʜᴀᴛ ʙᴏᴛ ❄️\n<u>sᴜᴘᴘᴏʀᴛᴇᴅ ʟᴀɴɢᴜᴀɢᴇs</u>: Eɴɢʟɪsʜ Aɴᴅ Cʜɪɴᴇsᴇ 🎄", reply_markup=InlineKeyboardMarkup(
+            await message.reply_photo(image_url, caption=f"ʜᴇʟʟᴏ {message.from_user.first_name}\n\nMʏ Nᴀᴍᴇ Is Cԋιƙυ 💓࿐ 🥀\nᴀ ᴀʀᴛɪғɪᴄɪᴀʟ ɪɴᴛᴇʟʟɪɢᴇɴᴄᴇ ᴄʜᴀᴛ ʙᴏᴛ ❄️\n\n<u>sᴜᴘᴘᴏʀᴛᴇᴅ ʟᴀɴɢᴜᴀɢᴇs</u>: Eɴɢʟɪsʜ Aɴᴅ Cʜɪɴᴇsᴇ 🎄", reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
