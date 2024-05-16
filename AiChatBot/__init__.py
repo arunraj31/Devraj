@@ -4,11 +4,12 @@ import time
 from importlib import import_module
 from os import listdir, path
 from dotenv import load_dotenv
+import config
 from pyrogram import Client
 from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID
 from pyrogram.enums import ParseMode
 
-LOGGER_ID = -1002113460681
+LOGGER_ID = config.LOGGER_ID
 
 loop = asyncio.get_event_loop()
 load_dotenv()
