@@ -26,7 +26,7 @@ Emojis = [
 ]
 
 try:
-    Zclient = MongoClient(MONGO_DB_URL)
+    Zclient = MongoClient(MONGO_URL)
     db = Zclient["CHIKUCHATBOTDB"]
     Zclient.admin.command('ping')
     print("MongoDB connection successful!")
