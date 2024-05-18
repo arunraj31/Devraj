@@ -3,6 +3,9 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from motor.motor_asyncio import AsyncIOMotorClient
 import requests
 from config import *
+import pymongo
+from pymongo import MongoClient
+import traceback
 from AiChatBot.Db import add_served_user, add_served_chat, get_served_chats, get_served_users
 from AiChatBot import Chiku, LOGGER_ID
 from pyrogram.enums import ChatAction, ChatType
@@ -22,9 +25,18 @@ Emojis = [
     "😾", "🌋", "👀", "🥀"
 ]
 
-mongo_client = AsyncIOMotorClient(MONGO_URL)
-db = mongo_client.chatbotdbb
-chatbotdatabase = db.chatbotdbbb
+try:
+    Zclient = MongoClient(MONGO_DB_URL)
+    db = Zclient["CHIKUCHATBOTDB"]
+    Zclient.admin.command('ping')
+    print("MongoDB connection successful!")
+except pymongo.errors.ServerSelectionTimeoutError as err:
+    print(f"Server selection timeout error:", {err})
+except Exception as e:
+    print(f"An error occurred:", {e})
+    traceback.print_exc()
+
+
 
 async def is_admin(chat_id: int, user_id: int) -> bool:
     member = await Chiku.get_chat_member(chat_id, user_id)
