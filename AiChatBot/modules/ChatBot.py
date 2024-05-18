@@ -25,17 +25,10 @@ Emojis = [
     "😾", "🌋", "👀", "🥀"
 ]
 
-try:
-    Zclient = MongoClient(MONGO_URL)
-    db = Zclient["CHIKUCHATBOTDB"]
-    Zclient.admin.command('ping')
-    print("MongoDB connection successful!")
-except pymongo.errors.ServerSelectionTimeoutError as err:
-    print(f"Server selection timeout error:", {err})
-except Exception as e:
-    print(f"An error occurred:", {e})
-    traceback.print_exc()
 
+Database = MongoClient(MONGO_URL)
+db = Database["CHIKUCHATBOTDB"]
+chatbotdatabase = db.chikibotdatabase
 
 
 async def is_admin(chat_id: int, user_id: int) -> bool:
