@@ -8,6 +8,9 @@ import config
 from pyrogram import Client
 from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID
 from pyrogram.enums import ParseMode
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 
 LOGGER_ID = config.LOGGER_ID
 
