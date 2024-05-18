@@ -5,7 +5,6 @@ import requests
 from config import *
 import pymongo
 from pymongo import MongoClient
-import traceback
 from AiChatBot.Db import add_served_user, add_served_chat, get_served_chats, get_served_users
 from AiChatBot import Chiku, LOGGER_ID
 from pyrogram.enums import ChatAction, ChatType
@@ -26,9 +25,9 @@ Emojis = [
 ]
 
 
-Database = MongoClient(MONGO_URL)
-db = Database["CHIKUCHATBOTDB"]
-chatbotdatabase = db.chikibotdatabase
+mongo_client = AsyncIOMotorClient(MONGO_URL)
+db = mongo_client.chatbotdbb
+chatbotdatabase = db.chatbotdbbb
 
 
 async def is_admin(chat_id: int, user_id: int) -> bool:
