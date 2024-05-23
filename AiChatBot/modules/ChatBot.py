@@ -155,7 +155,7 @@ async def handle_message(client, message):
         try:
             user_id = message.from_user.id
             user_message = message.text
-            api_url = f"http://api.brainshop.ai/get?bid=182053&key=JK9ywKO2q8HdpxtY&uid={user_id}&msg={user_message}"
+            api_url = f"http://api.brainshop.ai/get?bid=182151&key=NhPhSHvU6GQkoqhv&uid={user_id}&msg={user_message}"
             response = requests.get(api_url).json()["cnt"]
             await client.send_chat_action(message.chat.id, ChatAction.TYPING)
             await message.reply_text(response)
@@ -183,7 +183,7 @@ async def handle_message(client, message):
                 try:
                     user_id = message.from_user.id
                     user_message = message.text
-                    api_url = f"http://api.brainshop.ai/get?bid=182053&key=JK9ywKO2q8HdpxtY&uid={user_id}&msg={user_message}"
+                    api_url = f"http://api.brainshop.ai/get?bid=182151&key=NhPhSHvU6GQkoqhv&uid={user_id}&msg={user_message}"
                     response = requests.get(api_url).json()["cnt"]
                     await client.send_chat_action(message.chat.id, ChatAction.TYPING)
                     await message.reply_text(response)
