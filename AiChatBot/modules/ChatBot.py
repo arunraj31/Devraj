@@ -155,8 +155,8 @@ async def handle_message(client, message):
         try:
             user_id = message.from_user.id
             user_message = message.text
-            api_url = f"http://api.brainshop.ai/get?bid=182151&key=NhPhSHvU6GQkoqhv&uid={user_id}&msg={user_message}"
-            response = requests.get(api_url).json()["cnt"]
+            api_url = f"https://fallenxbot.vercel.app/api/apikey=5935608297-fallen-usbk33kbsu/group-controller/mukesh/message={user_message}"
+            response = requests.get(api_url).json()["reply"]
             await client.send_chat_action(message.chat.id, ChatAction.TYPING)
             await message.reply_text(response)
         except Exception as e:
@@ -183,8 +183,8 @@ async def handle_message(client, message):
                 try:
                     user_id = message.from_user.id
                     user_message = message.text
-                    api_url = f"http://api.brainshop.ai/get?bid=182151&key=NhPhSHvU6GQkoqhv&uid={user_id}&msg={user_message}"
-                    response = requests.get(api_url).json()["cnt"]
+                    api_url = f"https://fallenxbot.vercel.app/api/apikey=5935608297-fallen-usbk33kbsu/group-controller/mukesh/message={user_message}"
+                    response = requests.get(api_url).json()["reply"]
                     await client.send_chat_action(message.chat.id, ChatAction.TYPING)
                     await message.reply_text(response)
                     try:
