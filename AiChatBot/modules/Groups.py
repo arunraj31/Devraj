@@ -20,9 +20,7 @@ async def on_new_chat_members(client: Client, message: Message):
             chatusername = f"{message.chat.username}"
         else:
             chatusername = await client.export_chat_invite_link(message.chat.id)
-        for member in message.new_chat_members:
-            if member.id == 6708963396:
-                count = await app.get_chat_members_count(chat_id)
+        
         msg = (
             f"❄️ <b><u>ʙᴏᴛ #ᴀᴅᴅᴇᴅ ᴛᴏ ɴᴇᴡ ɢʀᴏᴜᴘ </u></b> \n\n"
             f"┏━━━━━━━━━━━━━━━━━┓\n"
@@ -30,7 +28,7 @@ async def on_new_chat_members(client: Client, message: Message):
             f"┣★ **ᴄʜᴀᴛ ɪᴅ** › : {chat_id}\n"
             f"┣★ **ᴄʜᴀᴛ ᴜɴᴀᴍᴇ** › : @{message.chat.username}\n"
             f"┣★ **ɢʀᴏᴜᴘ ʟɪɴᴋ** › : [ᴛᴏᴜᴄʜ]({chatusername}) \n"
-            f"┣★ **ɢʀᴏᴜᴘ ᴍᴇᴍʙᴇʀs** › : {count}\n"
+          #  f"┣★ **ɢʀᴏᴜᴘ ᴍᴇᴍʙᴇʀs** › : {count}\n"
             f"┣★ **ᴛᴏᴛᴀʟ ᴄʜᴀᴛ** › : {served_chats}\n"
             f"┣★ **ᴀᴅᴅᴇᴅ ʙʏ** › : {added_by} \n"
             f"┗━━━━━━━━━★ "
