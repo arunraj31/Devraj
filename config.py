@@ -14,7 +14,6 @@ OWNER_ID = list(
     map(int, getenv("OWNER_ID", "6844821478").split())
 ) 
 
-HEROKU_API = os.environ.get("HEROKU_API")
 
 MONGO_URL = os.environ.get("MONGO_URL")
 
