@@ -9,20 +9,6 @@ from AiChatBot.Db import add_served_user, add_served_chat, get_served_chats, get
 from AiChatBot import Chiku, LOGGER_ID
 from pyrogram.enums import ChatAction, ChatType
 
-Emojis = [
-    "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
-    "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
-    "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩",
-    "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣",
-    "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "🤬",
-    "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🤗",
-    "🤔", "🤭", "🤫", "🤥", "😶‍🌫️", "😐", "😑", "😬", "🙄", "😯",
-    "😦", "😧", "😮‍💨", "😲", "🥱", "😴", "😪", "😌", "🥴", "😵",
-    "🤐", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈",
-    "👿", "👹", "👺", "🤡", "💩", "👻", "💀", "☠️", "👽", "👾",
-    "🤖", "🎃", "😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿",
-    "😾", "🌋", "👀", "🥀"
-]
 
 
 mongo_client = AsyncIOMotorClient(MONGO_URL)
@@ -90,9 +76,6 @@ async def handle_message(client, message):
         OWNER = OWNER_ID[0]
     user_id = message.from_user.id
     if message.chat.type == ChatType.PRIVATE:
-        for emoji in Emojis:
-            if emoji in message.text:
-                return
         try:
             if (
                 message.text.startswith("Hello")
@@ -166,9 +149,6 @@ async def handle_message(client, message):
             chat_id = message.chat.id
             chatbot_info = await chatbotdatabase.find_one({"chat_id": chat_id})
             if chatbot_info:
-                for emoji in Emojis:
-                    if emoji in message.text:
-                        return
                 try:
                     if (
                         message.text.startswith("!")
