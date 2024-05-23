@@ -22,7 +22,7 @@ logging.basicConfig(
     level=logging.INFO,
 )
 
-
+logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("pymongo").setLevel(logging.ERROR)
 
 Chiku = Client(
